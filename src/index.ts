@@ -5,11 +5,8 @@ import * as ReactDOM from 'react-dom';
 
 import { Root } from './root';
 
-function main() {
-    ReactDOM.render(
-        React.createElement(Root),
-        document.getElementById('app')
-    );
-}
+const main = () => {
+    ReactDOM.render(React.createElement(Root), document.getElementById('app'));
+};
 
 main();

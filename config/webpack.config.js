@@ -12,13 +12,16 @@ module.exports = {
     devtool: 'cheap-eval-source-map',
 
     module: {
-        rules: [{
-            test: /\.tsx?$/,
-            use: 'ts-loader',
-        }, {
-            test: /\.css$/,
-            use: ['style-loader', 'css-loader'],
-        }],
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+        ],
     },
 
     resolve: {
@@ -30,7 +33,6 @@ module.exports = {
             template: path.resolve(SRC_PATH, 'index.html'),
             filename: 'index.html',
             inject: 'body',
-
         }),
     ],
 
