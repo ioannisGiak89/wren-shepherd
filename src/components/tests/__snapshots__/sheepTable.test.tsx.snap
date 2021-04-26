@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sheepTable should display sheep data 1`] = `
+<div
+  style={
+    Object {
+      "height": 400,
+      "width": "100%",
+    }
+  }
+/>
+`;
