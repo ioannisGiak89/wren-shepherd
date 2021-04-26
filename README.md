@@ -29,7 +29,7 @@ Make sure you have installed the dependencies first by running `npm install`.
 1. To mark a sheep as branded just click on its image. Sheep must be in the field first.
 1. To encourage two random sheep to breed, select them first from the data table and then click on the `Breed` button. If successful, a new sheep will appear into the field. A random name and gender will be given to it.
 
-Logic for breeding:
+#### Logic for breeding:
 
 1. The probability of a female sheep giving birth after mating is 50%
 1. Branded sheep are not able to breed
