@@ -1,47 +1,84 @@
-import * as React from 'react';
-import { range } from 'lodash';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-
-import Paper from '@material-ui/core/Paper';
-import { useEffect } from 'react';
-// import { Container, CssBaseline, Typography } from '@material-ui/core';
+import React, { useEffect, useRef, useState } from 'react';
+import { Field } from './components/field';
+import { createStyles, Grid, makeStyles } from '@material-ui/core';
+import { Form } from './components/form';
+import { Sheep } from './types';
+import { v4 as uuidv4 } from 'uuid';
+import { SheepTable } from './components/sheepTable';
+// import { GridSelectionModelChangeParams } from '@material-ui/data-grid';
 
 const useStyles = makeStyles(() =>
     createStyles({
         root: {
             flexGrow: 1,
         },
-        paper: {
-            height: 140,
-            width: 100,
-            backgroundColor: 'green',
+        padding: {
+            paddingTop: '100px',
         },
     })
 );
 
 const Root = () => {
+    const [gridWidth, setGridWidth] = useState(100);
+    const [sheep, setSheep] = useState<{ [key: string]: Sheep }>({});
+    const [totalSheep, setTotalSheep] = useState(0);
+    const containerRef = useRef<HTMLInputElement>(null);
     const classes = useStyles();
 
-    useEffect(() => {});
+    useEffect(() => {
+        if (containerRef.current) {
+            setGridWidth(containerRef.current.offsetWidth / 20);
+        }
+    }, [containerRef]);
+
+    const handleSubmit = (sheepToAdd: Sheep): void => {
+        setSheep({
+            ...sheep,
+            [uuidv4()]: sheepToAdd,
+        });
+        setTotalSheep(totalSheep + 1);
+    };
+
+    // const handleSelect = (param: GridSelectionModelChangeParams): void => {
+    //     console.log(param.selectionModel);
+    //     let sheepInState = sheep;
+    //     const
+    //     setSheep({
+    //         ...sheep,
+    //         [param.selectionModel[0]]: {
+    //             ...sheep[param.selectionModel[0]],
+    //             isSelected: !sheep[param.selectionModel[0]].isSelected,
+    //         },
+    //     });
+    // };
+
+    const handleBranding = (id: string, isBranded: boolean): void => {
+        setSheep({
+            ...sheep,
+            [id]: {
+                ...sheep[id],
+                isBranded,
+            },
+        });
+    };
 
     return (
-        <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12}>
-                {range(5).map((raws) => (
-                    <Grid key={raws} container justify="center" spacing={0}>
-                        {range(6).map((column) => (
-                            <Grid key={column} item>
-                                <div className={classes.paper} />
-                            </Grid>
-                        ))}
+        <div className={classes.root}>
+            <Grid container spacing={3} ref={containerRef}>
+                <Grid item xs={6}>
+                    <Field gridWidth={gridWidth} sheep={sheep} handleBranding={handleBranding} />
+                </Grid>
+                <Grid item xs={6}>
+                    <Grid item>
+                        <Form handleSubmit={handleSubmit} totalSheep={totalSheep} />
                     </Grid>
-                ))}
+                    <Grid className={classes.padding} xs={6} item>
+                        {/*<SheepTable handleSelect={handleSelect} sheep={sheep} />*/}
+                        <SheepTable sheep={sheep} />
+                    </Grid>
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <img src={} />;
-            </Grid>
-        </Grid>
+        </div>
     );
 };
 
