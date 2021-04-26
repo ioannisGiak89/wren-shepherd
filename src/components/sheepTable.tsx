@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid, GridSelectionModelChangeParams } from '@material-ui/data-grid';
 import { Sheep } from '../types';
 
 const columns = [
@@ -8,17 +8,28 @@ const columns = [
     { field: 'isBranded', headerName: 'Branded', width: 150 },
 ];
 
-const SheepTable = ({ sheep }: SheepTableProps) => {
-    const getRows = () =>
+/**
+ * Renders the table with the sheep
+ * @param sheep
+ * @param handleSelect
+ * @constructor
+ */
+const SheepTable = ({ sheep, handleSelect }: SheepTableProps) => {
+    /**
+     * Transforms the data to the right format
+     * for data grid table
+     */
+    const getRows = (): object[] =>
         Object.keys(sheep).map((id) => ({
             id,
             ...sheep[id],
+            isBranded: sheep[id].isBranded ? 'Yes' : 'No',
         }));
 
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid
-                // onSelectionModelChange={handleSelect}
+                onSelectionModelChange={handleSelect}
                 rows={getRows()}
                 columns={columns}
                 pageSize={5}
@@ -30,7 +41,7 @@ const SheepTable = ({ sheep }: SheepTableProps) => {
 
 interface SheepTableProps {
     sheep: { [key: string]: Sheep };
-    // handleSelect: (param: GridSelectionModelChangeParams) => void;
+    handleSelect: (param: GridSelectionModelChangeParams) => void;
 }
 
 export { SheepTable };

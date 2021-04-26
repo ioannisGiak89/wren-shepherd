@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     FormControl,
@@ -12,11 +12,17 @@ import {
 
 import { Sheep } from '../types';
 
+/**
+ * Renders the form for adding new sheep to the field
+ * @param handleSubmit
+ * @param totalSheep
+ * @constructor
+ */
 const Form = ({ handleSubmit, totalSheep }: FormProps) => {
-    const [gender, setGender] = React.useState('female');
-    const [name, setName] = React.useState('female');
-    const [error, setError] = React.useState(false);
-    const [helperText, setHelperText] = React.useState('Add a sheep');
+    const [gender, setGender] = useState<string>('female');
+    const [name, setName] = useState<string>('');
+    const [helperText, setHelperText] = useState<string>('Add a sheep');
+    const [error, setError] = useState<boolean>(false);
 
     const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGender((event.target as HTMLInputElement).value);
@@ -36,7 +42,6 @@ const Form = ({ handleSubmit, totalSheep }: FormProps) => {
         }
 
         handleSubmit({ name, gender, box: totalSheep, isBranded: false });
-        // handleSubmit({ name, gender, box: totalSheep, isBranded: false, isSelected: false });
     };
 
     return (
@@ -64,7 +69,7 @@ const Form = ({ handleSubmit, totalSheep }: FormProps) => {
                 />
                 <FormHelperText>{helperText}</FormHelperText>
                 <Button style={{ top: 5 }} type="submit" variant="contained" color="primary">
-                    Create sheep
+                    Add sheep
                 </Button>
             </FormControl>
         </form>
