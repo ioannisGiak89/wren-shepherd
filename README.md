@@ -40,4 +40,4 @@ Make sure you have installed the dependencies first by running `npm install`.
 
 1. Add a state management lib
 1. Increase test coverage
-1. Make UI a bit more responsive for small screens
+1. Make UI is a bit more responsive for small screens
